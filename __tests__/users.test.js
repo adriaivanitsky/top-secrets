@@ -15,13 +15,17 @@ describe('top-secrets routes', () => {
   const mockUser = {
     email: 'mock@user.com',
     password: '1234567',
+    firstName: 'adria',
+    lastName: 'ivanitsky',
   };
 
   test('should create a new user', async () => {
     const resp = await request(app).post('/api/v1/users').send(mockUser);
     expect(resp.body).toEqual({
       id: expect.any(String),
-      ...mockUser,
+      email: 'mock@user.com',
+      firstName: expect.any(String),
+      lastName: expect.any(String),
     });
   });
 });
