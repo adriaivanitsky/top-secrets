@@ -32,12 +32,12 @@ describe('top-secrets routes', () => {
 
   test('signs in an existing user', async () => {
     const user = await UserService.create({
-      username: 'adria',
+      email: 'adria',
       password: 'someregrets',
     });
     const resp = await request(app)
-      .post('/api/v1/auth/signin')
-      .send({ username: 'adria', password: 'someregrets' });
+      .post('/api/v1/users/signin')
+      .send({ email: 'adria', password: 'someregrets' });
 
     expect(resp.body).toEqual({
       message: 'sign in successful',
