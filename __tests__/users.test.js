@@ -47,16 +47,15 @@ describe('top-secrets routes', () => {
 
   test('returns a list of secrets', async () => {
     const agent = request.agent(app);
-
     await UserService.create({
       email: 'adria',
       password: 'someregrets',
     });
 
-    let res = await agent.get('ap1/v1/secrets');
+    let res = await agent.get('/api/v1/secrets');
     expect(res.status).toEqual(401);
     await agent
-      .post('/api/v1/users/session')
+      .post('/api/v1/users/signin')
       .send({ email: 'adria', password: 'someregrets' });
 
     res = await agent.get('/api/v1/secrets');
