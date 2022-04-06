@@ -64,10 +64,13 @@ describe('top-secrets routes', () => {
 
   test('posts a new secret', async () => {
     const agent = request.agent(app);
-    await agent.post('/api/v1/users/signin').send({
+    await UserService.create({
       email: 'adria',
       password: 'someregrets',
     });
+    await agent
+      .post('/api/v1/users/signin')
+      .send({ email: 'adria', password: 'someregrets' });
     const response = await agent
       .post('/api/v1/secrets')
       .send({ title: 'secret-4', description: 'i pee in the shower' });
