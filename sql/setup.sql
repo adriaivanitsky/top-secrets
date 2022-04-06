@@ -18,3 +18,9 @@ CREATE TABLE secrets (
     description TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO secrets (title, description)
+VALUES
+    ('secret-1', 'i think nacho libre is a good movie i dont care what anyone says'),
+    ('secret-2', 'i run up the stairs on all fours like an animal when no one is around'),
+    ('secret-3', 'i love sports')
