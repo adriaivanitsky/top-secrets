@@ -44,4 +44,23 @@ describe('top-secrets routes', () => {
       user,
     });
   });
+
+  test('returns a list of secrets', async () => {
+    const agent = request.agent(app);
+
+    await UserService.create({
+      email: 'adria',
+      password: 'someregrets',
+    });
+
+    let res = await agent.get('ap1/v1/secrets');
+    expect(res.status).toEqual(401);
+    //i learned this part from spencer i did not figure out how to do this on my own
+    await agent
+      .post('/api/v1/users/session')
+      .send({ email: 'adria', password: 'someregrets' });
+
+    res = await agent.get('/api/v1/secrets');
+    expect(res.status).toEqual(200);
+  });
 });
