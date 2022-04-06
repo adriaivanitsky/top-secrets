@@ -61,4 +61,22 @@ describe('top-secrets routes', () => {
     res = await agent.get('/api/v1/secrets');
     expect(res.status).toEqual(200);
   });
+
+  test('posts a new secret', async () => {
+    const agent = request.agent(app);
+    await agent.post('/api/v1/users/signin').send({
+      email: 'adria',
+      password: 'someregrets',
+    });
+    const response = await agent
+      .post('/api/v1/secrets')
+      .send({ title: 'secret-4', description: 'i pee in the shower' });
+
+    expect(response.body).toEqual({
+      title: 'secret-4',
+      description: 'i pee in the shower',
+      id: expect.any(String),
+      createdAt: expect.any(String),
+    });
+  });
 });
