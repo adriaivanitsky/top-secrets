@@ -82,4 +82,20 @@ describe('top-secrets routes', () => {
       createdAt: expect.any(String),
     });
   });
+
+  test('logs out a user', async () => {
+    const agent = request.agent(app);
+    await UserService.create({
+      email: 'adria',
+      password: 'someregrets',
+    });
+    await agent
+      .post('/api/v1/users/signin')
+      .send({ email: 'adria', password: 'someregrets' });
+    const resp = await agent.delete('/api/v1/users/sessions');
+    expect(resp.body).toEqual({
+      success: true,
+      message: 'successfully logged out',
+    });
+  });
 });
