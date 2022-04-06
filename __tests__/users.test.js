@@ -55,7 +55,6 @@ describe('top-secrets routes', () => {
 
     let res = await agent.get('ap1/v1/secrets');
     expect(res.status).toEqual(401);
-    //i learned this part from spencer i did not figure out how to do this on my own
     await agent
       .post('/api/v1/users/session')
       .send({ email: 'adria', password: 'someregrets' });
